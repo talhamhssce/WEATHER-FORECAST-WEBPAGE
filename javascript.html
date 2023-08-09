@@ -1,0 +1,39 @@
+<!-- Project-2 WEATHER FORECAST OF MUMBAI-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="coffeeshop.css"> -->
+</head>
+<body>
+    
+    <p id="output">Default text</p>
+    <input id="city">
+    <button onclick="show_temp()">Submit</button>
+    <script type="text/javascript">
+
+        function show_temp(){
+            document.getElementById("output").style.color = "red";
+            document.getElementById("output").style.fontSize = "20px";
+            city = document.getElementById("city").value;
+            
+            httpRequest = new XMLHttpRequest();
+            url = "https://api.weatherbit.io/v2.0/current?city="+city+"&key=a2a148b03480409b964bc44998fe8527";
+            httpRequest.open("GET", url);
+            httpRequest.send();
+
+            httpRequest.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    user_data = JSON.parse(this.responseText);
+                    document.getElementById("output").innerHTML = user_data.data[0].temp;
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
